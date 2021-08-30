@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{LayoutPadrao}">
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Pesquisa Professores</title>
+</head>
+	
+	<section layout:fragment="conteudo">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			    <div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Pesquisa Professores</h1>
+					<a class="btn-btn-link aw-link-panel" href="/professores/novo">Novo Professor</a>
+				</div>
+			</div>
+			
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center col-md-1">#</th>
+								<th>Nome</th>
+								<th class="text-right col-md-2">Salário</th>  
+								<th class="text-center col-md-2">Status</th>  
+								<th class="col-md-1"></th>  
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="professor:${professores}">
+								
+								<td class="text-center" th:text="${professor.codigo}"></td>
+								<td th:text="${professor.nome}"></td>
+								<td class="text-right" th:text="|R$ ${{professor.salario}}|"></td>
+								<td class="text-center" th:text="${professor.status.descricao}"></td>
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/professores/{codigo}(codigo = ${professor.codigo})}" 
+									        title="Editar" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									<a class="btn btn-link btn-xs" data-toggle="modal" data-target="#confirmacaoExclusaoModal" 
+									       th:attr="data-codigo=${professor.codigo}, data-descricao=${professor.descricao}"
+									       title="Excluir" rel="tooltip" data-placement="top">
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> 
+				
+			</div> 
+			
+			<div th:replace="DialogoConfirmacaoExclusao"></div>
+			
+		</div> 
+	</section>
+	
+</html>

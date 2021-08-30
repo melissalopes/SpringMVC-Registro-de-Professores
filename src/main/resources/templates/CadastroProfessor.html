@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{LayoutPadrao}">
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Cadastro Professor</title>
+</head>
+<section layout:fragment="conteudo">
+	<form class="form-horizontal" method="POST" action="/professores" th:object="${professor}"> 
+		
+		<div class="panel panel-default"> 
+			<div class="panel-heading">
+			    <div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Novo Professor</h1>
+					<a class="btn-btn-link aw-link-panel" href="/professores">Voltar para pesquisa</a>
+				</div>
+			</div>
+		</div>
+				
+		<div class="panel-body"> 
+			<input type="hidden" th:field="*{codigo}"/>
+		
+			<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? 'has-error'">
+				<label for="nome" class="col-sm-2 control-label">Nome</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" id="nome" th:field="*{nome}"/>
+				</div>
+			</div>
+			
+			<div class="form-group" th:classappend="${#fields.hasErrors('salario')} ? 'has-error'">
+				<label for="salario" class="col-sm-2 control-label">Salário</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control js-currency" id="salario" th:field="*{salario}"/>
+				</div>
+			</div>	
+				
+			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">Status</label>
+				<div class="col-sm-2">
+					<select class="form-control" name="status" th:field="*{status}">
+						<option th:each="status : ${todosStatusProfessor}" th:value="${status}" th:text="${status.descricao}"></option>
+					</select>
+				</div>
+			</div>	
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+				
+		</div> 
+	</form>  
+</section>
+</html>
